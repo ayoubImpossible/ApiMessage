@@ -2,19 +2,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const firebase = require('firebase-admin');
+require('dotenv').config();
 
 // Initialiser l'application Express
 const app = express();
-app.use(bodyParser.json()); // Pour analyser les requêtes JSON
-
-// Charger la clé privée Firebase
-const serviceAccount = require('./firebase-service-account.json');
-
-// Initialiser Firebase Admin SDK
 firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://powerappschat-default-rtdb.firebaseio.com/"  // Remplacer par l'URL de votre base de données
+  credential: firebase.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Assure-toi que les sauts de ligne sont correctement formatés
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL
+  })
 });
+
+
 
 const db = firebase.firestore();
 
@@ -71,20 +71,7 @@ app.use((req, res) => {
 
 
 //developpment Api
-app.post('/messages',  async(req, res) => {
-  try {
-    const { email, content } = req.body;
-    const message = {
-      email,
-      content,
-      timestamp: new Date()
-    };
-    const docRef = await firebase.database('message').add(message);
-    res.status(201).json({ id: docRef.id, ...message });
-  } catch (err) {
-    res.status(400).json({ error: 'Failed to send message' });
-  }
-});
+
 
 
 
