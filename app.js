@@ -9,9 +9,10 @@ const app = express();
 firebase.initializeApp({
   credential: firebase.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Assure-toi que les sauts de ligne sont correctement formatés
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL
-  })
+  }),
+  databaseURL: 'https://powerappschat-default-rtdb.firebaseio.com/' // Remplace par l'URL de ta base
 });
 
 
@@ -31,34 +32,44 @@ app.get('/', (req, res) => {
 
 
 
-// Route POST pour envoyer un message à Firebase
+
+
+
+
+
+app.use(express.json()); // Pour parser le JSON dans les requêtes
+
 app.post('/messages', async (req, res) => {
+  const { email, content } = req.body;
+
+  // Validation des champs
+  if (!email || !content) {
+    return res.status(400).json({ error: 'Email and content are required' });
+  }
+
   try {
-    // Extracting email and content from the request body
-    const { email, content } = req.body;
+    const db = firebase.database();
+    const ref = db.ref('messages'); // Référence à la collection 'messages'
 
-    // Check if email and content are provided
-    if (!email || !content) {
-      return res.status(400).json({ error: 'Email and content are required' });
-    }
+    // Pousser un nouveau message dans la base de données
+    const newMessageRef = ref.push();
+    await newMessageRef.set({
+      email: email,
+      content: content,
+      timestamp: Date.now()
+    });
 
-    // Create the message object
-    const message = {
-      email,
-      content,
-      timestamp: new Date()
-    };
-
-    // Store the message in the Firestore collection
-    const docRef = await db.collection('messages').add(message);
-
-    // Respond with the created message
-    res.status(201).json({ id: docRef.id, ...message });
-  } catch (err) {
-    console.error('Error posting message:', err);
-    res.status(500).json({ error: 'Failed to post message' });
+    res.status(201).json({ success: 'Message sent successfully' });
+  } catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).json({ error: 'Failed to send message' });
   }
 });
+
+
+
+
+
 
 
 
