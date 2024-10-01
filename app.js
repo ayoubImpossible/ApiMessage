@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-e
 // Use the router
 app.use('/api', router); // All routes in the router will be prefixed with /api
 
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
