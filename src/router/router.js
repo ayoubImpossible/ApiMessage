@@ -1,5 +1,5 @@
 const express = require('express');
-const getConversation = require('../controller/GetConversation');
+const getConversation = require('../Controller/GetConversation');
 //const deleteMessage = require('../Controller/DeleteMessage');
 //const getAllMessagesByEmail = require('../Controller/GetAllMessageByEmail');
 const postMessage  = require('../Controller/PostMessage');
