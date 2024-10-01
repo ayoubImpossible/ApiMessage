@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const router = require('./router/router'); // Adjust the path as needed
+const router = require('./src/router/router'); // Adjust the path as needed
 const app = express();
 
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
