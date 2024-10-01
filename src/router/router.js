@@ -1,8 +1,8 @@
 const express = require('express');
-const {getConversation} = require('../Controller/getConversation');
+const {getConversation} = require('../controller/getConversation');
 //const deleteMessage = require('../Controller/DeleteMessage');
 //const getAllMessagesByEmail = require('../Controller/GetAllMessageByEmail');
-const {postMessage}  = require('../Controller/postMessage');
+const {postMessage}  = require('../controller/postMessage');
 
 const router = express.Router();
 
