@@ -21,4 +21,4 @@ const getAllMessagesByEmail = async (req, res) => {
     }
 };
 
-module.exports = getAllMessagesByEmail;
+module.exports = {getAllMessagesByEmail};

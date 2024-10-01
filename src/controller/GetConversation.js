@@ -48,4 +48,4 @@ const getConversation = async (req, res) => {
     }
 };
 
-module.exports =  getConversation ;
+module.exports =  {getConversation} ;

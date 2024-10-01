@@ -23,4 +23,4 @@ const deleteMessage = async (req, res) => {
     }
 };
 
-module.exports = deleteMessage;
+module.exports = {deleteMessage};

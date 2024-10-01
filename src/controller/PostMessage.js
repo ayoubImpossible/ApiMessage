@@ -26,4 +26,4 @@ const postMessage = async (req, res) => {
     }
 };
 
-module.exports = postMessage;
+module.exports = {postMessage};
