@@ -1,7 +1,7 @@
 const express = require('express');
 const getConversation = require('../controller/GetConversation');
-const deleteMessage = require('../Controller/DeleteMessage');
-const getAllMessagesByEmail = require('../Controller/GetAllMessageByEmail');
+//const deleteMessage = require('../Controller/DeleteMessage');
+//const getAllMessagesByEmail = require('../Controller/GetAllMessageByEmail');
 const postMessage  = require('../Controller/PostMessage');
 
 const router = express.Router();
@@ -12,9 +12,9 @@ router.post('/message', postMessage);
 
 router.get('/conversation', getConversation);
 
-router.delete('/messages/:messageId', deleteMessage);
+//router.delete('/messages/:messageId', deleteMessage);
 
-router.get('/messages/:email', getAllMessagesByEmail); // Add the new route
+//router.get('/messages/:email', getAllMessagesByEmail); // Add the new route
 
 
 
