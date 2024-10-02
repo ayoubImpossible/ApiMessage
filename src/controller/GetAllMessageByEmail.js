@@ -14,15 +14,18 @@ const getAllMessagesByEmail = async (req, res) => {
             ...doc.data()
         }));
 
-    let jsonString = JSON.stringify(messages);
+        let jsonString = JSON.stringify(messages);
 
-    // Remplacer les virgules par des points-virgules
-    jsonString = jsonString.replace(/,/g, ';');
+        // Remplacer les virgules par des points-virgules
+        jsonString = jsonString.replace(/,/g, ';');
+    
+        // Supprimer les guillemets seulement autour des clés (pas des valeurs)
+        jsonString = jsonString.replace(/"(\w+)":/g, '$1:');
+    
+        // Optionnel: Supprimer les crochets du tableau si tu veux une liste d'objets
+        jsonString = jsonString.replace(/\[/g, '').replace(/\]/g, '');
+    
 
-    // Supprimer les guillemets des clés (titres)
-    jsonString = jsonString.replace(/"(\w+)":/g, '$1:');
-
-    // Retourner la nouvelle chaîne formatée
 
         res.status(200).json(jsonString);
     } catch (error) {
