@@ -14,7 +14,17 @@ const getAllMessagesByEmail = async (req, res) => {
             ...doc.data()
         }));
 
-        res.status(200).json(messages);
+    let jsonString = JSON.stringify(messages);
+
+    // Remplacer les virgules par des points-virgules
+    jsonString = jsonString.replace(/,/g, ';');
+
+    // Supprimer les guillemets des clés (titres)
+    jsonString = jsonString.replace(/"(\w+)":/g, '$1:');
+
+    // Retourner la nouvelle chaîne formatée
+
+        res.status(200).json(jsonString);
     } catch (error) {
         console.error("Error getting messages: ", error);
         res.status(500).json({ error: "An error occurred while retrieving messages." });
