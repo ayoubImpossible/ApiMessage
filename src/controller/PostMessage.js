@@ -2,7 +2,7 @@
 const admin = require('firebase-admin');
 
 // Function to post a message
-const postMessage = async (req, res) => {
+const PostMessage = async (req, res) => {
     const { from, to, content } = req.body;
 
     if (!from || !to || !content) {
@@ -26,4 +26,4 @@ const postMessage = async (req, res) => {
     }
 };
 
-module.exports = postMessage;
+module.exports = PostMessage;

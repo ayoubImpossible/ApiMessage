@@ -1,6 +1,6 @@
 const { db } = require('../utils/firebase');
 
-const getConversation = async (req, res) => {
+const GetConversation = async (req, res) => {
     try {
         const { email1, email2 } = req.query;
 
@@ -48,5 +48,5 @@ const getConversation = async (req, res) => {
     }
 };
 
-module.exports =  getConversation ;
+module.exports =  GetConversation ;
 
